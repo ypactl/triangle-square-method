@@ -27,13 +27,13 @@
         for (let j = 2*n.length-1; j > 0; j--) {
           o[i][j-1] = o[i][j-1]+Math.floor(o[i][j]/10)
           o[i][j] = o[i][j]%10
-          o[n.length-1][j] = o[n.length-1][j]+Number(o[i][j])
+          o[n.length][j] = o[n.length][j]+Number(o[i][j])
         }
-        o[n.length-1][0] = o[n.length-1][0]+Number(o[i][0])
+        o[n.length][0] = o[n.length][0]+Number(o[i][0])
       }
       for (let i = 2*n.length-1; i > 0; i--) {
-        o[n.length-1][i-1] = o[n.length-1][i-1]+Math.floor(o[n.length-1][i]/10)
-        o[n.length-1][i] = o[n.length-1][i]%10
+        o[n.length][i-1] = o[n.length][i-1]+Math.floor(o[n.length][i]/10)
+        o[n.length][i] = o[n.length][i]%10
       }
       document.getElementById("numInput").innerHTML = " "+document.getElementById("number").value.split("").join(" ")+"<br>"+o.map(v=>v.join("")).join("<br>")
     }
