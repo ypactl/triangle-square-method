@@ -13,6 +13,59 @@
   <label for="number">Number<br></label>
   <input type="text" id="number" value="0">
   <p id="numInput">await</p>
+  <br>
+  <h3>
+    How does this method work?
+  </h3>
+  <p>
+    The first step is to start with a number, say... 20736. Then, align the digits by spacing them on every other cell like this.<br>
+    <br>
+    _2_0_7_3_6<br>
+    <br>
+    The second step is to square each of the digits and align them like this.
+    <br>
+    _2_0_7_3_6<br>
+    0400490936<br>
+    <br>
+    The third and hard step is to take every pair of digits that are one digit apart, every pair of digits that are two digits apart, every pair of digits that are three digits apart, and so on, then multiply those, then double the results, then align them like this.<br>
+    (If you somehow cannot get what it says, I'll show you a visual representation.)<br>
+    <br>
+    [1 DIGIT APART] 2&0, 0&7, 7&3, 3&6 -> 2*0*2, 0*7*2, 7*3*2, 3*6*2 -> 00, 00, 42, 36<br>
+    [2 DIGIT APART] 2&7, 0&3, 7&6 -> 2*7*2, 0*3*2, 7*6*2 -> 28, 00, 84<br>
+    [3 DIGIT APART] 2&3, 0&6 -> 2*3*2, 0*6*2 -> 12, 00<br>
+    [4 DIGIT APART] 2&6 -> 2*6*2 -> 24<br>
+    (Any result that is less than 10 will have an extra 0 digit in the left.)<br>
+    <br>
+    _2_0_7_3_6<br>
+    0400490936<br>
+    _00004236_<br>
+    __280084__<br>
+    ___1200___<br>
+    ____24____<br>
+    (If any result is over 99, do the normal carry-over like in addition.)<br>
+    (A = 10, B = 11, C = 12, D = 13, ...)<br>
+    _9_8_7<br>
+    816449<br>
+    _E4B2_<br>
+    __C6__<br>
+    turns into<br>
+    _9_8_7<br>
+    816449<br>
+    14512_<br>
+    _126__<br>
+    <br>
+    The last step is to add up everything but the first row.<br>
+    <br>
+    _2_0_7_3_6<br>
+    0400490936<br>
+    _00004236_<br>
+    __280084__<br>
+    ___1200___<br>
+    ____24____<br>
+    0429981696<br>
+    <br>
+    The last row is the result.
+  </p>
   <script>
     function ah() {
       document.getElementById("number").value = document.getElementById("number").value.replace(/\D/g, "")
@@ -35,7 +88,7 @@
         o[n.length][i-1] = o[n.length][i-1]+Math.floor(o[n.length][i]/10)
         o[n.length][i] = o[n.length][i]%10
       }
-      document.getElementById("numInput").innerHTML = " "+document.getElementById("number").value.split("").join(" ")+"<br>"+o.map(v=>v.join("")).join("<br>")
+      document.getElementById("numInput").innerHTML = "_"+document.getElementById("number").value.split("").join("_")+"<br>"+o.map(v=>v.join("")).join("<br>")
     }
     setInterval(ah, 1)
   </script>
