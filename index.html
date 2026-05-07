@@ -10,13 +10,26 @@
       font-family: "monospace", monospace;
     }
   </style>
-  <label for="number">Number:</label>
+  <label for="number">Number<br></label>
   <input type="text" id="number" value="0">
   <p id="numInput">await</p>
   <script>
     function ah() {
       document.getElementById("number").value = document.getElementById("number").value.replace(/\D/g, "")
-      document.getElementById("numInput").innerHTML = document.getElementById("number").value
+      let o = ".".repeat(document.getElementById("number").value.length).split("").map(v => ".".repeat(document.getElementById("number").value.length*2).split("").map(v => 0))
+      let n = document.getElementById("number").value
+      for (let i = 0; i < n.length; i++) {
+        for (let j = 0; j < n.length-i; j++) {
+          o[i][2*j+1+i] = (1+(i > 0))*n[j]*n[i+j]
+        }
+      }
+      for (let i = 0; i < n.length; i++) {
+        for (let j = 2*n.length-1; j > 0; j--) {
+          o[i][j-1] = o[i][j-1]+Math.floor(o[i][j]/10)
+          o[i][j] = o[i][j]%10
+        }
+      }
+      document.getElementById("numInput").innerHTML = " "+document.getElementById("number").value.split("").join(" ")+"<br>"+o.map(v=>v.join("")).join("<br>")
     }
     setInterval(ah, 1)
   </script>
